@@ -1,0 +1,5 @@
+/* src/app/app.component.css */
+:host { display:block; min-height:100dvh; background:#fafafa; }
+.header { padding:16px; border-bottom:1px solid #eee; }
+.brand { font-weight:600; text-decoration:none; }
+.container { padding:24px; }
