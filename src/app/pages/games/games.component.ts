@@ -39,27 +39,39 @@ export class GamesComponent implements OnInit {
     });
   }
 
-  submit(): void {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    const value = this.form.getRawValue() as Game;
-
-    if (this.editingId()) {
-      this.api.update({ ...value, id: this.editingId()! })
-        .subscribe((g: Game) => {
-          this.games.set(this.games().map(item => (item.id === g.id ? g : item)));
-          this.cancel();
-        });
-    } else {
-      this.api.create(value).subscribe((g: Game) => {
-        this.games.set([g, ...this.games()]);
-        this.form.reset({ id: null, name: '', objective: '', price: 0 });
-      });
-    }
+ submit(): void {
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
+
+  const value = this.form.getRawValue() as Game;
+
+  // EDITAR
+  if (this.editingId()) {
+    const id = this.editingId()!;
+
+    this.api.update({ ...value, id })
+      .subscribe((resp: Game | null | undefined) => {
+        // se o mock devolver null/undefined, usa o que enviamos
+        const updated: Game = resp ?? { ...value, id };
+
+        this.games.set(
+          this.games().map(it => (it.id === id ? updated : it))
+        );
+
+        this.cancel();
+      });
+
+  // CRIAR
+  } else {
+    this.api.create(value).subscribe((created: Game) => {
+      this.games.set([created, ...this.games()]);
+      this.form.reset({ id: null, name: '', objective: '', price: 0 });
+    });
+  }
+}
+
 
   edit(item: Game): void {
     this.editingId.set(item.id!);
