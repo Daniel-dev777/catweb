@@ -1,0 +1,45 @@
+<section class="panel">
+  <h2>Cadastro de Jogos</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="row">
+      <label>Nome</label>
+      <input formControlName="name" />
+    </div>
+    <div class="row">
+      <label>Objetivo</label>
+      <input formControlName="objective" />
+    </div>
+    <div class="row">
+      <label>Preço (R$)</label>
+      <input type="number" step="0.01" formControlName="price" />
+    </div>
+    <div class="actions">
+      <button type="submit">{{ editingId() ? 'Salvar' : 'Adicionar' }}</button>
+      <button type="button" (click)="cancel()" *ngIf="editingId()">Cancelar</button>
+    </div>
+  </form>
+</section>
+
+<section class="panel">
+  <h3>Jogos cadastrados</h3>
+  <div *ngIf="loading()">Carregando...</div>
+
+  <table *ngIf="!loading() && games().length" class="grid">
+    <thead><tr><th>ID</th><th>Nome</th><th>Objetivo</th><th>Preço</th><th>Ações</th></tr></thead>
+    <tbody>
+      <tr *ngFor="let g of games()">
+        <td>{{ g.id }}</td>
+        <td>{{ g.name }}</td>
+        <td>{{ g.objective }}</td>
+        <td>{{ g.price | number:'1.2-2' }}</td>
+        <td>
+          <button type="button" (click)="edit(g)">Editar</button>
+          <button type="button" (click)="remove(g.id!)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!loading() && !games().length">Nenhum jogo ainda.</p>
+</section>
