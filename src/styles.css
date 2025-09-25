@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+/* --- libs --- */
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* --- tema --- */
+:root{
+  --steam-bg-1: #171a21;   /* fundo quase preto azulado */
+  --steam-bg-2: #1b2838;   /* azul grafite */
+  --steam-panel: #2a475e;  /* painéis/tabelas */
+  --steam-accent: #66c0f4; /* links/realces */
+}
+
+html, body {
+  height: 100%;
+}
+
+body{
+  background: linear-gradient(180deg, #3f2991, #6f778a); /* mude as cores aqui */
+  color: #0b1220;  /* cor padrão do texto fora dos cards (ajuste se quiser) */
+  min-height: 100vh;
+}
+
+/* navbar (se houver) */
+.navbar-dark.bg-primary{
+  background-color: var(--accent) !important;
+}
+
+/* borda mais suave nos cards  */
+.card { border-radius: 0.75rem; }
+
+/* utilidades para escurecer cards/tabelas quando quiser */
+.card-dark   { background-color: #000 !important; color: #fff !important; }
+.card-glass  { background: rgba(255,255,255,.06); backdrop-filter: blur(4px); }
+.table-dark  { --bs-table-bg: #0b0b0b; }
+.card-glass { background: rgba(255,255,255,.06); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,.08); }
