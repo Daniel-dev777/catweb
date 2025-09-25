@@ -1,5 +1,4 @@
-/* src/app/app.component.css */
-:host { display:block; min-height:100dvh; background:#fafafa; }
-.header { padding:16px; border-bottom:1px solid #eee; }
+:host { display:block; min-height:100dvh; background:#be1d1d; }
+.header { padding:16px; border-bottom:1px solid #d42727; }
 .brand { font-weight:600; text-decoration:none; }
 .container { padding:24px; }

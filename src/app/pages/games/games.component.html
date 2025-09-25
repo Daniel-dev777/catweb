@@ -1,45 +1,101 @@
-<section class="panel">
-  <h2>Cadastro de Jogos</h2>
+<body class="body-back">
+  <div class="container py-4">
 
-  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
-    <div class="row">
-      <label>Nome</label>
-      <input formControlName="name" />
-    </div>
-    <div class="row">
-      <label>Objetivo</label>
-      <input formControlName="objective" />
-    </div>
-    <div class="row">
-      <label>Preço (R$)</label>
-      <input type="number" step="0.01" formControlName="price" />
-    </div>
-    <div class="actions">
-      <button type="submit">{{ editingId() ? 'Salvar' : 'Adicionar' }}</button>
-      <button type="button" (click)="cancel()" *ngIf="editingId()">Cancelar</button>
-    </div>
-  </form>
-</section>
+    <!-- “Cadastro de Jogos” -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-white">
+        <h5 class="mb-0">Cadastro de Jogos</h5>
+      </div>
 
-<section class="panel">
-  <h3>Jogos cadastrados</h3>
-  <div *ngIf="loading()">Carregando...</div>
+      <div class="card-body">
+        <!-- form em bloco, lembrando seu retângulo grande -->
+        <form [formGroup]="form" (ngSubmit)="submit()" class="row g-3">
+          <div class="col-12">
+            <label class="form-label">Nome</label>
+            <input class="form-control form-control-lg" placeholder="Ex.: Hades" formControlName="name" />
+          </div>
 
-  <table *ngIf="!loading() && games().length" class="grid">
-    <thead><tr><th>ID</th><th>Nome</th><th>Objetivo</th><th>Preço</th><th>Ações</th></tr></thead>
-    <tbody>
-      <tr *ngFor="let g of games()">
-        <td>{{ g.id }}</td>
-        <td>{{ g.name }}</td>
-        <td>{{ g.objective }}</td>
-        <td>{{ g.price | number:'1.2-2' }}</td>
-        <td>
-          <button type="button" (click)="edit(g)">Editar</button>
-          <button type="button" (click)="remove(g.id!)">Excluir</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          <div class="col-12">
+            <label class="form-label">Objetivo</label>
+            <textarea class="form-control" rows="4" placeholder="Descreva o objetivo"
+              formControlName="objective"></textarea>
+          </div>
 
-  <p *ngIf="!loading() && !games().length">Nenhum jogo ainda.</p>
-</section>
+          <div class="col-sm-6 col-md-4">
+            <label class="form-label">Preço (R$)</label>
+            <input type="number" step="0.01" class="form-control" formControlName="price" />
+          </div>
+
+          <div class="col-12">
+            <!-- BOTÃO Add/Salvar COM TOOLTIP -->
+            <!-- <button type="submit" class="btn btn-primary js-tip" [attr.title]="editingId() ? 'Salvar' : 'Adicionar'"
+              [attr.data-placement]="editingId() ? 'top' : 'right'">
+              <i class="bi bi-plus-circle me-1"></i>
+              {{ editingId() ? 'Salvar' : 'Add' }}
+            </button> -->
+            <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip"
+              [attr.data-bs-placement]="editingId() ? 'top' : 'right'"
+              [attr.title]="editingId() ? 'Salvar' : 'Adicionar'">
+              <i class="bi bi-plus-circle me-1"></i>
+              {{ editingId() ? 'Salvar' : 'Add' }}
+            </button>
+
+
+            <button type="button" class="btn btn-outline-secondary ms-2" *ngIf="editingId()" (click)="cancel()">
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- “Jogos cadastrados” -->
+    <div class="card bg-black text-white shadow-sm border-0">
+      <div class="card-header bg-black border-0">
+        <h5 class="mb-0">Jogos cadastrados</h5>
+      </div>
+
+      <div class="card-body p-0">
+        <div *ngIf="loading()" class="p-3">Carregando…</div>
+        <div *ngIf="!loading() && !games().length" class="p-3 text-muted">Nenhum jogo ainda.</div>
+
+        <div class="table-responsive" *ngIf="!loading() && games().length">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th style="width:80px">ID</th>
+                <th>Nome</th>
+                <th>Objetivo</th>
+                <th class="text-end" style="width:140px">Preço</th>
+                <th class="text-center" style="width:140px">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let g of games(); trackBy: trackById">
+                <td class="text-muted">{{ g.id }}</td>
+                <td class="fw-semibold">{{ g.name }}</td>
+                <td>{{ g.objective }}</td>
+                <td class="text-end">{{ g.price | number:'1.2-2' }}</td>
+                <td class="text-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" (click)="edit(g)"
+                      data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="remove(g.id!)"
+                      data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir">
+                      <i class="bi bi-trash"></i>
+                    </button>
+
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>

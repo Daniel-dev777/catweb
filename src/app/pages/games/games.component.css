@@ -1,0 +1,4 @@
+.body-back{
+  background: linear-gradient(180deg, #009efa, #1b2838) fixed;
+  min-height: 100vh;
+}
