@@ -1,0 +1,5 @@
+/* deixa o link ativo com contraste melhor */
+.nav-link.active {
+  font-weight: 600;
+  text-decoration: underline;
+}
