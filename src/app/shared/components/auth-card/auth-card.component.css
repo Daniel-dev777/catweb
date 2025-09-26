@@ -1,0 +1,9 @@
+/* ajustes visuais leves */
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+  border-radius: 1rem;
+}
+.btn.active {
+  color: #c76060 !important;
+}

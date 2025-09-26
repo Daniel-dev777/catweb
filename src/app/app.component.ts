@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { filter } from 'rxjs/operators';
-import { NavbarComponent } from './app/shared/components/navbar/navbar';
+import { NavbarComponent } from './shared/components/navbar/navbar';
 
 // ajuste este caminho se necessário:
 

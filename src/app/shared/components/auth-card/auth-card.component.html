@@ -1,0 +1,69 @@
+<!-- src/app/auth-card/auth-card.component.html -->
+
+
+
+<!-- Layout puro com Bootstrap -->
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-body-tertiary">
+  <div class="card shadow-sm auth-card">
+    <div class="card-body p-4 p-md-5">
+      <h1 class="h4 text-center mb-4">CatWeb</h1>
+
+      <!-- Abas -->
+      <ul class="nav nav-pills justify-content-center gap-2 mb-4">
+        <li class="nav-item">
+          <button
+            class="btn btn-outline-primary"
+            [class.active]="activeTab() === 'login'"
+            (click)="setTab('login')">Entrar</button>
+        </li>
+        <li class="nav-item">
+          <button
+            class="btn btn-outline-primary"
+            [class.active]="activeTab() === 'register'"
+            (click)="setTab('register')">Cadastrar</button>
+        </li>
+      </ul>
+
+      <!-- Form Login -->
+      <form *ngIf="activeTab() === 'login'" novalidate>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" placeholder="seu@email.com">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Senha</label>
+          <input type="password" class="form-control" placeholder="mínimo 6 caracteres">
+        </div>
+
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-primary">Entrar</button>
+          <button type="button" class="btn btn-link p-0" (click)="setTab('register')">Criar uma conta</button>
+        </div>
+      </form>
+
+      <!-- Form Cadastro -->
+      <form *ngIf="activeTab() === 'register'" novalidate>
+        <div class="mb-3">
+          <label class="form-label">Nome</label>
+          <input type="text" class="form-control" placeholder="Seu nome completo">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" placeholder="seu@email.com">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Senha</label>
+          <input type="password" class="form-control" placeholder="mínimo 6 caracteres">
+        </div>
+
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-success">Cadastrar</button>
+          <button type="button" class="btn btn-link p-0" (click)="setTab('login')">Já tenho conta</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
