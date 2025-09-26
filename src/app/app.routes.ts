@@ -1,34 +1,34 @@
-// src/app/app.routes.ts
 import { Routes } from '@angular/router';
-import { canExitGamesGuard } from './pages/games/games.guard'; // importe o guard aqui
 
 export const routes: Routes = [
-  // Página inicial
-  { path: '', pathMatch: 'full', redirectTo: 'home' },
-  { path: 'home', loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent) },
-  // Home
+  // abre direto na home pública
+  { path: '', pathMatch: 'full', redirectTo: 'home-publica' },
+
+  // home-publica: navbar GLOBAL oculta; usamos navbar LOCAL no template
+  {
+    path: 'home-publica',
+    loadComponent: () =>
+      import('./pages/home-publica/home-publica').then(m => m.HomePublica),
+    data: { hideNavbar: true },
+  },
   {
     path: 'home',
     loadComponent: () =>
       import('./pages/home/home.component').then(m => m.HomeComponent),
   },
 
-  // Games (com guard para sair sem salvar)
+
+  // demais páginas (exemplos; ajuste como preferir)
   {
     path: 'games',
     loadComponent: () =>
       import('./pages/games/games.component').then(m => m.GamesComponent),
-    canDeactivate: [canExitGamesGuard], // use o guard importado
   },
-
-  // 404
   {
     path: '404',
     loadComponent: () =>
       import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent),
-      data: { hideNavbar: true }
+    data: { hideNavbar: true },
   },
-
-  // Wildcard
   { path: '**', redirectTo: '404' },
 ];
